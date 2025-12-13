@@ -62,3 +62,7 @@ npm run dev
 cd frontend
 npm install
 npm start
+
+## Live Demo
+Frontend: https://your-site.netlify.app  //https://app.netlify.com/projects/symphonious-sprinkles-30dee1/deploys/693dc19d54739a55c55a8276
+Backend: https://your-backend.onrender.com
