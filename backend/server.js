@@ -8,56 +8,30 @@ const protectedRoutes = require("./routes/protectedRoutes");
 
 const app = express();
 
-/**
- * ======================
- * MIDDLEWARE
- * ======================
- */
-app.use(
-  cors({
-    origin: "*", // allow frontend (Netlify)
-    credentials: true,
-  })
-);
+// middleware
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
 app.use(express.json());
 
-/**
- * ======================
- * ROUTES
- * ======================
- */
-app.use("/api/auth", authRoutes);   // login, register
-app.use("/api", protectedRoutes);   // /profile, protected APIs
+// routes
+app.use("/api/auth", authRoutes);
+app.use("/api", protectedRoutes);
 
-/**
- * ======================
- * TEST ROUTE
- * ======================
- */
+// test route
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
 
-/**
- * ======================
- * DATABASE CONNECTION
- * ======================
- */
+// MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected successfully ✅"))
   .catch((err) => {
     console.error("MongoDB connection failed ❌");
-    console.error(err.message);
     process.exit(1);
   });
 
-/**
- * ======================
- * START SERVER
- * ======================
- */
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
